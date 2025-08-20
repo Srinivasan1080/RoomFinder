@@ -1,0 +1,108 @@
+/* ---------- CSS: College Empty Room Finder ---------- */
+:root{
+  --bg:#0b1020;
+  --card:#121a33;
+  --muted:#8fa3c8;
+  --text:#e7ecff;
+  --accent:#7aa2ff;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --border: #223055;
+  --shadow: 0 10px 25px rgba(0,0,0,.3);
+  --radius: 16px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1200px 600px at 10% -10%, #172043 0%, var(--bg) 40%);
+  color:var(--text);
+}
+
+.app-header, .app-footer{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 20px; border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  position:sticky; top:0; z-index:10;
+  backdrop-filter: blur(6px);
+}
+.app-footer{ border-top:1px solid var(--border); border-bottom:none; bottom:0; top:auto; position:sticky;}
+
+h1{margin:0; font-size:1.25rem}
+h2{margin:0; font-size:1.1rem}
+.muted{color:var(--muted)}
+
+.layout{display:grid; grid-template-columns: 320px 1fr; gap:16px; padding:16px;}
+
+.filters{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow);
+  position:sticky; top:84px; height:calc(100vh - 120px); overflow:auto;
+}
+.filter-group{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
+.filter-group input, .filter-group select{
+  background:#0e1630; border:1px solid var(--border); border-radius:12px; padding:10px; color:var(--text);
+  outline-color: var(--accent);
+}
+.filter-group .switch{ position:relative; display:inline-block; width:46px; height:26px; }
+.switch input{opacity:0; width:0; height:0}
+.slider{ position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background:#3b476a; transition:.2s; border-radius:26px;}
+.slider:before{ position:absolute; content:""; height:20px; width:20px; left:3px; top:3px; background:white; border-radius:50%; transition:.2s }
+.switch input:checked + .slider{ background: #224bff }
+.switch input:checked + .slider:before{ transform: translateX(20px) }
+
+.btn{ background:var(--accent); color:#0b1020; border:none; padding:10px 14px; border-radius:12px; cursor:pointer; box-shadow:var(--shadow); font-weight:600 }
+.btn:hover{ filter:brightness(1.05) }
+.btn:active{ transform: translateY(1px) }
+.btn-secondary{ background:#263a72; color:var(--text) }
+.btn-primary{ background: var(--accent); }
+
+.icon-btn{ background:transparent; border:1px solid var(--border); color:var(--text); padding:6px 10px; border-radius:10px; cursor:pointer }
+.icon-btn:hover{ background:#1a2446 }
+
+.content{ display:flex; flex-direction:column; gap:12px }
+.content-header{ display:flex; align-items:baseline; justify-content:space-between; gap:12px }
+.map{
+  background: linear-gradient(180deg, #0e1630, #0b132a);
+  border:1px solid var(--border); border-radius:var(--radius); padding:12px; height:220px; box-shadow:var(--shadow);
+}
+svg .bldg{ fill:#1b2550; stroke:#2f3e77; stroke-width:2 }
+svg text{ fill:#93a7d8; font-size:14px }
+
+.room-list{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:12px }
+.room-card{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:12px; display:flex; flex-direction:column; gap:8px;
+  box-shadow:var(--shadow);
+}
+.room-title{ display:flex; align-items:center; gap:8px; justify-content:space-between }
+.badge{ display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:4px 10px; font-size:.8rem; }
+.badge-free{ background: rgba(34,197,94,.2); color: #22c55e; border:1px solid rgba(34,197,94,.35) }
+.badge-busy{ background: rgba(239,68,68,.2); color: #ef4444; border:1px solid rgba(239,68,68,.35) }
+.badge-booked{ background: rgba(245,158,11,.2); color: #f59e0b; border:1px solid rgba(245,158,11,.35) }
+
+.tags{ display:flex; flex-wrap:wrap; gap:6px }
+.tag{ background:#16224a; border:1px solid var(--border); padding:4px 8px; border-radius:999px; font-size:.75rem; color:#c7d6ff }
+
+.card-footer{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.card-footer .btn{ padding:8px 10px }
+
+.dialog-content{ background:var(--card); border:1px solid var(--border); border-radius:18px; width:min(680px, 96vw) }
+dialog{ border:none; padding:0; }
+.dialog-header, .dialog-footer{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--border) }
+.dialog-footer{ border-top:1px solid var(--border); border-bottom:none }
+.dialog-body{ padding:12px 16px; display:flex; flex-direction:column; gap:10px }
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+
+.hint{ margin-top:8px }
+.legend{ display:flex; gap:6px; flex-wrap:wrap }
+
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:#0e1630; color:var(--text); border:1px solid var(--border); padding:12px 14px; border-radius:12px; box-shadow:var(--shadow);
+}
+
+@media (max-width: 920px){
+  .layout{ grid-template-columns: 1fr; }
+  .filters{ position:static; height:auto }
+}

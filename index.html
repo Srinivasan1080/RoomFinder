@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>College Empty Room Finder</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="app-header">
+    <h1 aria-label="College Empty Room Finder">🏫 College Empty Room Finder</h1>
+    <div class="header-actions">
+      <button id="loginBtn" class="btn">Login</button>
+      <button id="resetBtn" class="btn btn-secondary" title="Clear filters and bookings">Reset</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="filters" aria-label="Filters">
+      <div class="filter-group">
+        <label for="buildingSelect">Building</label>
+        <select id="buildingSelect">
+          <option value="">All</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="departmentSelect">Department</label>
+        <select id="departmentSelect">
+          <option value="">All</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="capacityInput">Min. Capacity</label>
+        <input id="capacityInput" type="number" min="0" placeholder="e.g., 40"/>
+      </div>
+
+      <div class="filter-group">
+        <label for="timeInput">Time</label>
+        <input id="timeInput" type="datetime-local"/>
+      </div>
+
+      <div class="filter-group">
+        <label class="switch">
+          <input id="liveToggle" type="checkbox" checked/>
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+        <span>Live Occupancy</span>
+      </div>
+
+      <div class="filter-group">
+        <input id="searchInput" aria-label="Search rooms" type="search" placeholder="Search room or equipment..."/>
+      </div>
+
+      <div class="filter-group">
+        <button id="applyFilters" class="btn btn-primary">Apply Filters</button>
+      </div>
+
+      <details class="hint">
+        <summary>Legend</summary>
+        <div class="legend">
+          <span class="badge badge-free">Empty</span>
+          <span class="badge badge-busy">Occupied</span>
+          <span class="badge badge-booked">Booked</span>
+        </div>
+      </details>
+    </aside>
+
+    <section class="content">
+      <div class="content-header">
+        <h2 id="resultTitle">Available Rooms</h2>
+        <div id="resultCount" class="muted"></div>
+      </div>
+
+      <div id="map" class="map" role="img" aria-label="Campus map placeholder">
+        <!-- Simple map placeholder -->
+        <svg viewBox="0 0 600 240" width="100%" height="100%" aria-hidden="true">
+          <rect x="10" y="20" width="170" height="200" class="bldg bldg-a"/>
+          <text x="20" y="40">Building A</text>
+          <rect x="210" y="20" width="170" height="200" class="bldg bldg-b"/>
+          <text x="220" y="40">Building B</text>
+          <rect x="410" y="20" width="170" height="200" class="bldg bldg-c"/>
+          <text x="420" y="40">Building C</text>
+        </svg>
+      </div>
+
+      <ul id="roomList" class="room-list" aria-live="polite">
+        <!-- Rooms will render here -->
+      </ul>
+    </section>
+  </main>
+
+  <!-- Room Drawer / Modal -->
+  <dialog id="roomDialog">
+    <form method="dialog" class="dialog-content">
+      <header class="dialog-header">
+        <h3 id="dialogTitle">Room</h3>
+        <button value="cancel" class="icon-btn" aria-label="Close dialog">✕</button>
+      </header>
+      <div id="roomDetails" class="dialog-body"></div>
+      <footer class="dialog-footer">
+        <button id="bookBtn" class="btn btn-primary" type="button">Book</button>
+        <button id="unbookBtn" class="btn btn-secondary" type="button">Unbook</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- Login Modal -->
+  <dialog id="loginDialog">
+    <form method="dialog" class="dialog-content">
+      <header class="dialog-header">
+        <h3>Login</h3>
+        <button value="cancel" class="icon-btn" aria-label="Close dialog">✕</button>
+      </header>
+      <div class="dialog-body grid-2">
+        <label>
+          <span>Role</span>
+          <select id="roleSelect">
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+            <option value="admin">Admin</option>
+          </select>
+        </label>
+        <label>
+          <span>ID</span>
+          <input id="userIdInput" placeholder="e.g., STU1234"/>
+        </label>
+      </div>
+      <footer class="dialog-footer">
+        <button id="loginConfirm" class="btn btn-primary" type="button">Continue</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+
+  <footer class="app-footer">
+    <span>© 2025 College Empty Room Finder • Demo</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
